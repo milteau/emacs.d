@@ -10,11 +10,13 @@
   :demand t                         ;; 强制立即加载，不能延迟
   :config
   (setq dashboard-banner-logo-title  "𝓔𝓶𝓪𝓬𝓼  ── 鹏程电子书房")
-  (setq dashboard-startup-banner     'logo)
+  (setq dashboard-startup-banner     "~/.emacs.d/avatar.jpg")
+  (setq dashboard-banner-length 150)
+  (setq dashboard-banner-max-width 150)
   (setq dashboard-center-content     t)
   (setq dashboard-show-shortcuts     nil)
   (setq dashboard-items
-        '((recents   . 12)
+        '((recents   . 9)
           (bookmarks . 6)
           (projects  . 5)))         ;; 去掉 agenda，避免启动时强制加载 org
   (setq dashboard-item-names
