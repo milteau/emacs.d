@@ -1,0 +1,15 @@
+# Emacs auto-generated files
+.elpa/
+elpa/
+eln_cache/
+.cache/
+auto-save-list/
+trash/
+*.elc
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*~
