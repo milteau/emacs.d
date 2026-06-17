@@ -1,5 +1,10 @@
 ;; init.el — 主入口，只做加载调度
-;; 模块存放于 ~/.emacs.d/lisp/
+
+;; ── 性能优化：启动时增加 GC 阈值 ─────────────────────
+(setq gc-cons-threshold (* 100 1024 1024))
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (setq gc-cons-threshold (* 8 1024 1024))))
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
@@ -10,14 +15,23 @@
 
 ;; ── UI 层 ───────────────────────────────────────────────
 (require 'init-ui)       ;; 主题 / modeline
+(require 'init-dashboard) ;; 优先加载主面板，提升视觉启动速度
 
-;; ── 工具层 ──────────────────────────────────────────────
-(require 'init-ivy)      ;; ivy + counsel + swiper
-(require 'init-treemacs) ;; 文件树
-(require 'init-denote)   ;; 笔记系统
-(require 'init-company) ;;补全系统
-(require 'init-git) ;; git管理
-;;—— 个人信息——
+;; ── 核心工具层（启动时立即可用） ─────────────────────────
+;; 💡 建议在 ivy 和 vertico 之间二选一，如果全要，按下方保留：
+(require 'init-ivy)      
+(require 'init-vertico)  
+(require 'init-company)  ;; 补全系统
+
+;; ── 延迟工具层（开机空闲 1 秒后在后台静默加载） ───────────
+(run-with-idle-timer 1.0 nil
+  (lambda ()
+    (require 'init-denote)   ;; 笔记系统
+    (require 'init-git)      ;; git管理
+    (require 'init-treemacs) ;; 文件树
+    (message "后台扩展模块加载完成 ✨")))
+
+;; —— 个人信息 ──
 (setq user-full-name "鹏程Frank"
       user-mail-address "fupengcheng95@outlook.com")
 
@@ -25,6 +39,3 @@
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
   (load custom-file))
-
-(require 'init-vertico)
-(require 'init-dashboard)

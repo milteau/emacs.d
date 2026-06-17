@@ -1,5 +1,6 @@
 ((magit-commit
   ("--verbose"))
+ (magit-dispatch nil)
  (magit-ediff nil)
  (magit-log
   ("--decorate" "--graph" "-n256"))
