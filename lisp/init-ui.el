@@ -1,6 +1,6 @@
 ;;; init-ui.el --- 主题 / modeline / org 视觉 -*- lexical-binding: t; -*-
 
-;; ── 主题 ────────────────────────────────────────────────
+;; ── 1. 主题与极简风 ──────────────────────────────────────
 (use-package modus-themes
   :ensure t
   :init
@@ -9,47 +9,49 @@
   :config
   (load-theme 'modus-operandi t))
 
-;; ── 图标支持 ────────────────────────────────────────────
+;; ── 2. 字体与图标整合（合并 Windows 防御代码） ───────────────────
 (use-package nerd-icons
   :ensure t
   :config
-  ;; 强制让 Emacs 的 Unicode 字符集走刚装好的新字体
+  ;; 将 Windows 特效代码合并到一个优雅的 block 中
   (when (eq system-type 'windows-nt)
-    (set-fontset-font t 'unicode (font-spec :family "Symbols Nerd Font Mono") nil 'append)))
+    (let ((nerd-font (font-spec :family "Symbols Nerd Font Mono"))
+          (emoji-font (font-spec :family "Segoe UI Emoji")))
+      (set-fontset-font t 'unicode nerd-font nil 'append)
+      (set-fontset-font t 'symbol nerd-font nil 'prepend)
+      (set-fontset-font t 'emoji emoji-font nil 'prepend)
+      (set-fontset-font t '(#x1f000 . #x1f9ff) emoji-font nil 'prepend))))
 
-;; ── 增强型全局字体与符号映射（解决 Windows 顽固方块） ──────────────────
-(when (eq system-type 'windows-nt)
-  ;; 1. 让所有非标字符和特殊符号优先尝试走刚装好的 Nerd Font
-  (set-fontset-font t 'symbol (font-spec :family "Symbols Nerd Font Mono") nil 'prepend)
-  
-  ;; 2. 让所有标准的彩色 Emoji（比如书本、星星、火箭等）走 Windows 自带的 Segoe UI Emoji 字体
-  (set-fontset-font t 'emoji (font-spec :family "Segoe UI Emoji") nil 'prepend)
-  
-  ;; 3. 针对某些老版本 Emacs 的多重保障（强制将指定编码段映射到 Segoe UI Emoji）
-  (set-fontset-font t '(#x1f000 . #x1f9ff) (font-spec :family "Segoe UI Emoji") nil 'prepend))
-
-;; ── doom-modeline ───────────────────────────────────────
+;; ── 3. doom-modeline（原生接管：去文本，留图标） ───────────────
 (use-package doom-modeline
   :ensure t
-  :init (setq doom-modeline-icon t) 
   :hook (after-init . doom-modeline-mode)
   :custom
-  (doom-modeline-height 26)              ; 状态栏高度
-  (doom-modeline-bar-width 4)            ; 左侧垂直状态条宽度
-  (doom-modeline-major-mode-icon t)      ; 显示主模式图标
+  (doom-modeline-height 22)               ; 稍微调低高度更精致
+  (doom-modeline-bar-width 3)
+  (doom-modeline-icon t)
+  (doom-modeline-major-mode-icon t)       ; 开启图标
+  (doom-modeline-major-mode-color-icon t)
   
-  ;; 精简现代风设置
-  (doom-modeline-minor-modes nil)        ; 隐藏右侧一长串 Minor Modes
-  (doom-modeline-buffer-encoding nil)     ; 隐藏 UTF-8 编码提示
-  (doom-modeline-indent-info nil)        ; 隐藏缩进提示
-  (doom-modeline-vcs-max-length 15))
+  ;; 极致精简：关闭一切不需要的文本提示
+  (doom-modeline-minor-modes nil)
+  (doom-modeline-buffer-encoding nil)
+  (doom-modeline-indent-info nil)
+  (doom-modeline-vcs-max-length 15)
+  
+  :config
+  ;; 核心精简：直接重写 dashboard 映射，不需要写繁琐的 advice
+  (with-eval-after-load 'doom-modeline
+    (add-to-list 'doom-modeline-mode-alist
+                 '(dashboard-mode . (progn
+                                      (setq-local doom-modeline-major-mode-icon t)
+                                      (setq-local mode-name ""))))))
 
-;; ── which-key ───────────────────────────────────────────
+;; ── 4. 其他功能模块 ──────────────────────────────────────
 (use-package which-key
   :ensure t
   :hook (after-init . which-key-mode))
 
-;; ── Org Mode 视觉增强 ────────────────────────────────────
 (use-package org
   :defer t
   :hook (org-mode . org-indent-mode)

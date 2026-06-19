@@ -24,6 +24,7 @@
 (require 'init-ivy)      
 (require 'init-vertico)  
 (require 'init-company)  ;; 补全系统
+(require 'init-publish)
 
 ;; ── 延迟工具层（开机空闲 1 秒后在后台静默加载） ───────────
 (run-with-idle-timer 1.0 nil
