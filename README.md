@@ -24,7 +24,7 @@
 - **够用就好**：不追求功能强大，只追求专注于写作本身
 - **笔记自主**：每篇笔记都是独立的 `.org` 文件，保存在你自己的电脑里，不被任何软件绑定
 - **零学习成本**：不需要记住任何快捷键，提示框会告诉你下一步该按什么
-- **安静界面**：深色主题、简洁状态栏，长时间写作也不累眼睛
+- **安静界面**：Modus Operandi 亮色主题、简洁状态栏，长时间写作也不累眼睛
 
 ---
 
@@ -65,11 +65,19 @@ Vertico 提供纵向补全列表，Consult 在此基础上提供了更强大的�
 
 按 `C-x t t` 打开或关闭侧边栏，显示笔记目录结构。
 
-### 5. which-key —— 快捷键提示
+### 5. Magit —— Git 版本控制
+
+按 `C-x g` 打开 Magit 状态界面，管理你的笔记版本历史。
+
+### 5. Org Publish —— 笔记发布
+
+支持将 `.org` 文件发布为 HTML，可配置个人网站部署路径。
+
+### 6. which-key —— 快捷键提示
 
 当你按下第一个键时，屏幕底部会浮现提示框，显示接下来可以按什么键。**你不需要记住任何快捷键。**
 
-### 6. Modus 主题 —— 护眼界面
+### 7. Modus 主题 —— 护眼界面
 
 默认使用 Modus Operandi 亮色主题，配色柔和、对比度适中，长时间写作也不累眼睛。
 
@@ -98,16 +106,20 @@ git clone https://github.com/milteau/emacs.d.git ~/.emacs.d
 ├── init.el                 # 主入口
 ├── custom.el               # Emacs 自动维护的自定义配置
 ├── lisp/
+│   ├── init-backup.el      # 备份与自动保存配置
+│   ├── init-company.el     # 文本补全框架
 │   ├── init-core.el        # 编辑器基本行为
-│   ├── init-encoding.el   # 编码与字体
-│   ├── init-packages.el   # 包管理器
-│   ├── init-ui.el         # 主题与状态栏
-│   ├── init-ivy.el         # ivy + swiper
-│   ├── init-vertico.el    # 补全框架
-│   ├── init-treemacs.el   # 文件树
-│   ├── init-denote.el     # 笔记系统
-│   ├── init-company.el    # 补全框架
-│   └── init-dashboard.el  # 启动首页
+│   ├── init-dashboard.el   # 启动首页
+│   ├── init-denote.el      # 双向链接笔记系统
+│   ├── init-encoding.el    # 编码与字体
+│   ├── init-git.el         # Magit Git 界面
+│   ├── init-ivy.el         # Ivy 搜索补全
+│   ├── init-modeline.el    # 自定义状态栏
+│   ├── init-packages.el    # 包管理器
+│   ├── init-publish.el     # Org Publish 网站发布
+│   ├── init-treemacs.el    # 文件树侧边栏
+│   ├── init-ui.el          # 主题配置
+│   └── init-vertico.el     # Vertico 纵向补全
 └── README.md
 ```
 
@@ -132,6 +144,12 @@ git clone https://github.com/milteau/emacs.d.git ~/.emacs.d
 |--------|------|------|
 | `C-x t t` | `treemacs` | 打开或关闭文件树 |
 | `C-x t 1` | `treemacs-select-window` | 专注当前窗口 |
+
+### 版本控制
+
+| 快捷键 | 命令 | 作用 |
+|--------|------|------|
+| `C-x g` | `magit-status` | 打开 Git 状态界面 |
 
 ### 搜索
 
@@ -164,7 +182,7 @@ git clone https://github.com/milteau/emacs.d.git ~/.emacs.d
 
 ### Q: 我的笔记会不会丢失？
 
-**不会。** 每篇笔记都是一个独立的文件，存在你自己电脑的文件夹里，不依赖任何云服务或特定软件。
+**不会。** 每篇笔记都是一个独立的 `.org` 文件，保存在你自己电脑的 `~/org/denote/` 目录里，不依赖任何云服务或特定软件。
 
 ---
 
@@ -176,16 +194,18 @@ git clone https://github.com/milteau/emacs.d.git ~/.emacs.d
 | `vertico` + `orderless` + `marginalia` | 纵向补全与模糊匹配 |
 | `consult` | 增强型交互命令 |
 | `embark` + `embark-consult` | 候选目标动作菜单 + Consult 集成 |
-| `ivy` + `counsel` + `swiper` | 搜索补全 |
+| `ivy` + `counsel` + `swiper` | 搜索补全（与 Vertico 同时启用） |
 | `company` + `company-box` | 文本补全框架 + 补全弹出菜单美化 |
 | `which-key` | 快捷键提示 |
 | `treemacs` | 文件树侧边栏 |
 | `nerd-icons` | Treemacs / Dashboard 图标支持 |
-| `modus-themes` | 主题包（含 modus-operandi） |
+| `modus-themes` | 主题包（含 Modus Operandi 亮色主题） |
 | `doom-modeline` | 状态栏美化 |
 | `org-bullets` | Org 标题美化 |
 | `dashboard` | 启动首页 |
+| `magit` | Git 版本控制界面 |
 | `projectile` | 项目管理 |
+| `zzz-to-char` | 快速跳转至指定字符 |
 
 ---
 
