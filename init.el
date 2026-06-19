@@ -12,10 +12,12 @@
 (require 'init-core)     ;; 编辑器基本行为
 (require 'init-encoding) ;; 编码 / 字体
 (require 'init-packages) ;; 包管理器初始化
+(require 'init-backup)
 
 ;; ── UI 层 ───────────────────────────────────────────────
 (require 'init-ui)       ;; 主题 / modeline
 (require 'init-dashboard) ;; 优先加载主面板，提升视觉启动速度
+(require 'init-modeline)
 
 ;; ── 核心工具层（启动时立即可用） ─────────────────────────
 ;; 💡 建议在 ivy 和 vertico 之间二选一，如果全要，按下方保留：

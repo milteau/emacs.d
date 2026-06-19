@@ -16,7 +16,7 @@
   (setq dashboard-center-content     t)
   (setq dashboard-show-shortcuts     nil)
   (setq dashboard-items
-        '((recents   . 9)
+        '((recents   . 5)
           (bookmarks . 6)
           (projects  . 5)))         ;; 去掉 agenda，避免启动时强制加载 org
   (setq dashboard-item-names
