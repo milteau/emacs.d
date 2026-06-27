@@ -22,32 +22,25 @@
       (set-fontset-font t 'emoji emoji-font nil 'prepend)
       (set-fontset-font t '(#x1f000 . #x1f9ff) emoji-font nil 'prepend))))
 
-;; ── 3. doom-modeline（原生接管：去文本，留图标） ───────────────
-(use-package doom-modeline
-  :ensure t
-  :hook (after-init . doom-modeline-mode)
-  :custom
-  (doom-modeline-height 22)               ; 稍微调低高度更精致
-  (doom-modeline-bar-width 3)
-  (doom-modeline-icon t)
-  (doom-modeline-major-mode-icon t)       ; 开启图标
-  (doom-modeline-major-mode-color-icon t)
-  
-  ;; 极致精简：关闭一切不需要的文本提示
-  (doom-modeline-minor-modes nil)
-  (doom-modeline-buffer-encoding nil)
-  (doom-modeline-indent-info nil)
-  (doom-modeline-vcs-max-length 15)
-  
-  :config
-  ;; 核心精简：直接重写 dashboard 映射，不需要写繁琐的 advice
-  (with-eval-after-load 'doom-modeline
-    (add-to-list 'doom-modeline-mode-alist
-                 '(dashboard-mode . (progn
-                                      (setq-local doom-modeline-major-mode-icon t)
-                                      (setq-local mode-name ""))))))
+;;── 4. 内置状态栏扩展（时间、电量、标签页） ──────────────────────
+;; 从 early-init.el 迁移至此，确保 GUI 和内置库加载完毕后安全启用
 
-;; ── 4. 其他功能模块 ──────────────────────────────────────
+;; 4.1 开启时间显示（24小时制，隐藏负载）
+(setq display-time-24hr-format t)
+(setq display-time-default-load-average nil)
+(display-time-mode 1)
+
+;; 4.2 开启电量显示（如果是台式机或 WSL 也可以安全保留，不报错）
+(display-battery-mode 1)
+
+;; 4.3 开启内置标签页
+(if (fboundp 'tab-bar-mode)
+    (progn
+      (setq tab-bar-close-button-show nil)  ; 隐藏标签页上的关闭[x]按钮
+      (setq tab-bar-new-button-show nil)  ; 隐藏顶部的 [+]按钮
+      (tab-bar-mode 1)))
+
+;; ── 5. 其他功能模块 ──────────────────────────────────────
 (use-package which-key
   :ensure t
   :hook (after-init . which-key-mode))

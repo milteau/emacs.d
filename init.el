@@ -18,6 +18,7 @@
 (require 'init-ui)       ;; 主题 / modeline
 (require 'init-dashboard) ;; 优先加载主面板，提升视觉启动速度
 (require 'init-modeline)
+(my-modeline-mode 1)
 
 ;; ── 核心工具层（启动时立即可用） ─────────────────────────
 ;; 💡 建议在 ivy 和 vertico 之间二选一，如果全要，按下方保留：
@@ -26,12 +27,16 @@
 (require 'init-company)  ;; 补全系统
 (require 'init-publish)
 
+;; ── Treemacs 真正按键触发层 ──────────────────────────────
+;; 绑定到你原本习惯的全局快捷键上
+(global-set-key (kbd "C-x t t") 'my-treemacs-toggle)
+(global-set-key (kbd "C-x t 1") 'my-treemacs-select)
+
 ;; ── 延迟工具层（开机空闲 1 秒后在后台静默加载） ───────────
 (run-with-idle-timer 1.0 nil
   (lambda ()
     (require 'init-denote)   ;; 笔记系统
     (require 'init-git)      ;; git管理
-    (require 'init-treemacs) ;; 文件树
     (message "后台扩展模块加载完成 ✨")))
 
 ;; —— 个人信息 ──

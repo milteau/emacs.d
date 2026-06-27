@@ -16,16 +16,6 @@
 ;; 禁用包管理器提前初始化（交由 init-packages.el 接管）
 (setq package-enable-at-startup nil)
 
-;; 开启时间显示
-(display-time-mode 1)
-
-(setq display-time-24hr-format t)
-
-;; 开启电量显示
-(display-battery-mode 1)
-
-(setq display-time-default-load-average nil)
-
 ;; 将 eln-cache 转移到系统的临时目录或专用的 Cache 目录
 (when (boundp 'native-comp-eln-load-path)
   (startup-redirect-eln-cache

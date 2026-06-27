@@ -16,14 +16,4 @@
          ("<tab>" . company-complete-selection)
          ("RET" . nil)))
 
-;; ── 美化补全框 ───────────────────────────────────────────
-(use-package company-box
-  :ensure t
-  :after company
-  :hook (company-mode . company-box-mode)
-  :custom
-  (company-box-show-single-candidate t)
-  (company-box-max-candidates        10)
-  (company-box-icons-alist 'company-box-icons-nerd-icons))
-
 (provide 'init-company)
