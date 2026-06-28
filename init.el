@@ -26,6 +26,7 @@
 (require 'init-vertico)  
 (require 'init-company)  ;; 补全系统
 (require 'init-publish)
+(require 'init-org)
 
 ;; ── Treemacs 真正按键触发层 ──────────────────────────────
 ;; 绑定到你原本习惯的全局快捷键上

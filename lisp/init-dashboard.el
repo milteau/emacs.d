@@ -28,7 +28,8 @@
   (setq dashboard-set-file-icons     t)
   (setq dashboard-set-heading-icons  t)
   (setq dashboard-footer-messages
-        '("知之为知之，不知为不知，是知也。"))
+        '("知之为知之，不知为不知，是知也。"
+	  "吾生也有涯，而知也无涯。"))
   (setq dashboard-footer-icon "📖")
   (setq initial-buffer-choice
         (lambda () (get-buffer-create "*dashboard*")))
