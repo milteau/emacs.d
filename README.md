@@ -65,19 +65,26 @@ Vertico 提供纵向补全列表，Consult 在此基础上提供了更强大的�
 
 按 `C-x t t` 打开或关闭侧边栏，显示笔记目录结构。
 
-### 5. Magit —— Git 版本控制
+### 4. Magit —— Git 版本控制
 
 按 `C-x g` 打开 Magit 状态界面，管理你的笔记版本历史。
 
-### 5. Org Publish —— 笔记发布
+### 5. Org-mode —— 任务管理与写作
+
+- **TODO 任务流**：自定义状态 `TODO → DOING → DONE / CANCELLED`，带颜色高亮
+- **快速捕获**：`C-c c` 调出收件箱，记录任务或灵感；`C-c a` 打开日程视图
+- **智能链接**：自动识别国内站点（百度、B 站等）用系统浏览器打开，其他链接用 EWW 内置浏览器
+- 启动时默认折叠、大纲优化、代码块原生高亮
+
+### 6. Org Publish —— 笔记发布
 
 支持将 `.org` 文件发布为 HTML，可配置个人网站部署路径。
 
-### 6. which-key —— 快捷键提示
+### 7. which-key —— 快捷键提示
 
 当你按下第一个键时，屏幕底部会浮现提示框，显示接下来可以按什么键。**你不需要记住任何快捷键。**
 
-### 7. Modus 主题 —— 护眼界面
+### 8. Modus 主题 —— 护眼界面
 
 默认使用 Modus Operandi 亮色主题，配色柔和、对比度适中，长时间写作也不累眼睛。
 
@@ -115,6 +122,7 @@ git clone https://github.com/milteau/emacs.d.git ~/.emacs.d
 │   ├── init-git.el         # Magit Git 界面
 │   ├── init-ivy.el         # Ivy 搜索补全
 │   ├── init-modeline.el    # 自定义状态栏
+│   ├── init-org.el         # Org-mode 配置（TODO、捕获、链接）
 │   ├── init-packages.el    # 包管理器
 │   ├── init-publish.el     # Org Publish 网站发布
 │   ├── init-treemacs.el    # 文件树侧边栏
@@ -137,6 +145,13 @@ git clone https://github.com/milteau/emacs.d.git ~/.emacs.d
 | `C-c n f` | `denote-open-or-create` | 打开笔记（不存在则创建） |
 | `C-c n i` | `denote-link` | 插入链接到另一篇笔记 |
 | `C-c n b` | `denote-backlinks` | 查看反向链接 |
+
+### 任务与捕获
+
+| 快捷键 | 命令 | 作用 |
+|--------|------|------|
+| `C-c c` | `org-capture` | 快速捕获任务或灵感 |
+| `C-c a` | `org-agenda` | 打开日程视图 |
 
 ### 文件浏览
 
@@ -191,6 +206,7 @@ git clone https://github.com/milteau/emacs.d.git ~/.emacs.d
 | 插件 | 用途 |
 |------|------|
 | `denote` | 双向链接笔记管理 |
+| `org` | Org-mode 核心（任务管理、写作、导出） |
 | `vertico` + `orderless` + `marginalia` | 纵向补全与模糊匹配 |
 | `consult` | 增强型交互命令 |
 | `embark` + `embark-consult` | 候选目标动作菜单 + Consult 集成 |
